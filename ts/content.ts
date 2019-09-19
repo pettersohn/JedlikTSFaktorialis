@@ -22,23 +22,18 @@ export default class Content {
         res.write("</head>");
 
         res.write("<body><form style='font-family:Courier; font-size:24px'>");
-        res.write("<h1>Téglalap kerülete és területe</h1>");
+        res.write("<h1>Faktoriális számolása</h1>");
         const query: ParsedUrlQuery = url.parse(req.url as string, true).query;
         // tslint:disable-next-line: max-line-length
-        const a: number = query.aInput === undefined || query.aInput === "" ? 5 : parseFloat(query.aInput as string); // number = 64 bites lebegőpontos szám
-        const b: number = query.bInput === undefined || query.bInput === "" ? 6 : parseFloat(query.bInput as string);
-        res.write("<p>a= ");
-        res.write(`<input type='number' name='aInput' value=${a} onChange='this.form.submit();'`);
+        const x: number = query.xInput === undefined || query.xInput === "" ? 5 : parseFloat(query.xInput as string); // number = 64 bites lebegőpontos szám
+        res.write("<p>x= ");
+        res.write(`<input type='number' name='xInput' value=${x} onChange='this.form.submit();'`);
         res.write("</p>");
-        res.write("<br>");
-        res.write("<p>b= ");
-        res.write(`<input type='number' name='bInput' value=${b} onChange='this.form.submit();'`);
-        res.write("</p>");
-        let terulet: number; // deklarálás
-        terulet = a * b;
-        const kerulet: number = 2 * (a + b); // definiálás
-        res.write(`<p>T=${terulet}</p>`);
-        res.write(`<p>K=${kerulet}</p>`);
+        let faktor: number = x;
+        for (let i: number = (x - 1); i < x; i--) {
+            faktor = faktor * i;
+        }
+        res.write(`${x}! = ${faktor}`);
         res.write("</form></body>");
         res.write("</html>");
         res.end();
